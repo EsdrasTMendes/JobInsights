@@ -64,22 +64,20 @@ def filter_by_industry(jobs, industry):
 
 def get_max_salary(path):
     file = read(path)
-    max_salary = 0
+    max_salaries = []
     for salary in file:
         if salary["max_salary"].isdigit():
-            if int(salary["max_salary"]) > max_salary:
-                max_salary = int(salary["max_salary"])
-    return max_salary
+            max_salaries.append(int(salary["max_salary"]))
+    return max(max_salaries)
 
 
 def get_min_salary(path):
     file = read(path)
-    min_salary = 0
+    min_salaries = []
     for salary in file:
         if salary["min_salary"].isdigit():
-            if int(salary["min_salary"]) < min_salary:
-                min_salary = int(salary["min_salary"])
-    return min_salary
+            min_salaries.append(int(salary["min_salary"]))
+    return min(min_salaries)
 
 
 def matches_salary_range(job, salary):
