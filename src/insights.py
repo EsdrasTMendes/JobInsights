@@ -61,17 +61,24 @@ def get_min_salary(path):
 
 
 def matches_salary_range(job, salary):
-    if not job.min_salary or not job.max_salary:
+
+    if "min_salary" not in job or "max_salary" not in job:
         raise ValueError(
-            "Os campos min_salary e max_salary devem ser numeros validos"
+            "Não existem as chaves 'min_salary' ou 'max_salary' no Job"
         )
-    if job.min_salary > job.max_salary:
+    if (
+        type(job["min_salary"]) != int
+        or type(job["max_salary"]) != int
+        or type(salary) != int
+    ):
+        raise ValueError(
+            "min_salary, max_salary e salary devem ser do tipo int"
+        )
+    if job["min_salary"] > job["max_salary"]:
         raise ValueError(
             "O valor de min_salary deve ser menor que o o valor de max_salary"
         )
-    if not salary.isnumeric():
-        raise ValueError("O valor salary deve ser um valor numérico")
-    if job.min_salary <= salary <= job.max_salary:
+    if job["min_salary"] <= salary <= job["max_salary"]:
         return True
     return False
     pass
