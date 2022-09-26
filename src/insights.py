@@ -61,7 +61,6 @@ def get_min_salary(path):
 
 
 def matches_salary_range(job, salary):
-
     if "min_salary" not in job or "max_salary" not in job:
         raise ValueError(
             "Não existem as chaves 'min_salary' ou 'max_salary' no Job"
@@ -85,18 +84,12 @@ def matches_salary_range(job, salary):
 
 
 def filter_by_salary_range(jobs, salary):
-    """Filters a list of jobs by salary range
-
-    Parameters
-    ----------
-    jobs : list
-        The jobs to be filtered
-    salary : int
-        The salary to be used as filter
-
-    Returns
-    -------
-    list
-        Jobs whose salary range contains `salary`
-    """
-    return []
+    filtered_jobs = [
+        job
+        for job in jobs
+        if type(job["max_salary"]) == int
+        and type(job["min_salary"]) == int
+        and type(salary) == int
+        and job["min_salary"] <= salary <= job["max_salary"]
+    ]
+    return filtered_jobs
