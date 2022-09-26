@@ -77,19 +77,16 @@ def matches_salary_range(job, salary):
         raise ValueError(
             "O valor de min_salary deve ser menor que o o valor de max_salary"
         )
-    if job["min_salary"] <= salary <= job["max_salary"]:
-        return True
-    return False
+    return job["min_salary"] <= salary <= job["max_salary"]
     pass
 
 
 def filter_by_salary_range(jobs, salary):
-    filtered_jobs = [
-        job
-        for job in jobs
-        if type(job["max_salary"]) == int
-        and type(job["min_salary"]) == int
-        and type(salary) == int
-        and job["min_salary"] <= salary <= job["max_salary"]
-    ]
+    filtered_jobs = []
+    for job in jobs:
+        try:
+            if matches_salary_range(job, salary):
+                filtered_jobs.append(job)
+        except ValueError:
+            pass
     return filtered_jobs
